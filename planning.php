@@ -119,7 +119,7 @@ $connect = mysqli_connect('localhost', 'root', '','reservationsalles');
           <td>
           <?php
 
-              $request = "SELECT titre, DATE_FORMAT (fin, '%w'), DATE_FORMAT(debut,'%T'), DATE_FORMAT(fin,'%T'),utilisateurs.login, reservations.id FROM reservations INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE week(reservations.debut) = WEEK(CURDATE())";
+              $request = "SELECT titre, DATE_FORMAT(fin, '%w'), DATE_FORMAT(debut,'%T'), DATE_FORMAT(fin,'%T'),utilisateurs.login, reservations.id FROM reservations INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE week(reservations.debut) = WEEK(CURDATE())";
               $query = mysqli_query($connect , $request);
               $event = mysqli_fetch_all($query);
           
