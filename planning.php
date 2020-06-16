@@ -119,23 +119,23 @@ $connect = mysqli_connect('localhost', 'root', '','reservationsalles');
           <td>
           <?php
 
-              $request = "SELECT titre, DATE_FORMAT (fin, '%w'), DATE_FORMAT(debut,'%T'), utilisateurs.login, reservations.id FROM reservations INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE week(reservations.debut) = WEEK(CURDATE())";
+              $request = "SELECT titre, DATE_FORMAT (fin, '%w'), DATE_FORMAT(debut,'%T'), DATE_FORMAT(fin,'%T'),utilisateurs.login, reservations.id FROM reservations INNER JOIN utilisateurs ON reservations.id_utilisateur = utilisateurs.id WHERE week(reservations.debut) = WEEK(CURDATE())";
               $query = mysqli_query($connect , $request);
               $event = mysqli_fetch_all($query);
           
               $resa = ('<a class="tobook" href="reservation-form.php">Réserver</a>');
               $signal = 0;
-              //var_dump($test);
+          
               foreach ($event as $value){
             
-              if ((($value[2] == $debut) && ($value[1] == $today))){
+              if ((($value[2] == $debut) && ($value[3] == $fin) && ($value[1] == $today))){
                 $signal = 1;
                 echo '****' . $value[0] . '****</br>';
                 echo 'à ' . $value[2].'</br>';
-                echo 'Créateur : ' . $value[3].'</br>';
+                echo 'Créateur : ' . $value[4].'</br>';
                 
                 if(isset($_SESSION["login"])){
-                  echo ' <a id="idevent" href = "reservation.php?id='. $value[4].'">id event</a></td>';
+                  echo ' <a id="idevent" href = "reservation.php?id='. $value[5].'">lien event</a></td>';
                 }
               }
 
